@@ -3,6 +3,7 @@ suspended=0;
 percent50=0;
 percent25=0;
 percent20=0;
+user=$user;
 
 while true
 do
@@ -19,7 +20,7 @@ do
 		
 	elif [ $battery_level -le 15 ] && [ $battery_status = "off-line" ] && [ $suspended -eq 0 ]
 	then
-		su -c "notify-send '$battery_level% de bateria'" -s /bin/sh edu
+		su -c "notify-send '$battery_level% de bateria'" -s /bin/sh $user
 		sleep 5;
 		sudo pm-suspend;
 		suspended=1;
@@ -29,20 +30,20 @@ do
 
 	elif [ $battery_level -le 20 ] && [ $battery_status = "off-line" ] && [ $percent20 -eq 0 ]
 	then
-		su -c "notify-send '$battery_level% de bateria'" -s /bin/sh edu;
+		su -c "notify-send '$battery_level% de bateria'" -s /bin/sh $user;
 		percent20=1;
 		percent25=1;
 		percent50=1;
 	
 	elif [ $battery_level -le 25 ] && [ $battery_status = "off-line" ] && [ $percent25 -eq 0 ]
 	then
-		su -c "notify-send '$battery_level% de bateria'" -s /bin/sh edu;
+		su -c "notify-send '$battery_level% de bateria'" -s /bin/sh $user;
 		percent25=1;
 		percent50=1;
 	
 	elif [ $battery_level -le 50 ] && [ $battery_status = "off-line" ] && [ $percent50 -eq 0 ]
 	then
-		su -c "notify-send '$battery_level% de bateria'" -s /bin/sh edu;
+		su -c "notify-send '$battery_level% de bateria'" -s /bin/sh $user;
 		percent50=1;
 
 	elif [ $battery_status = "online" ]
