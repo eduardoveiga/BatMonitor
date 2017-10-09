@@ -53,9 +53,7 @@ do
 		percent20=0;
 	fi
 	
-	echo "20 $percent20";
-	echo "25 $percent25";
-	echo "50 $percent50";
+
 	sleep 60;
 
 done
