@@ -1,9 +1,11 @@
-
+export HOME=/home/
+export DISPLAY=":0.0"
 suspended=0;
 percent50=0;
 percent25=0;
 percent20=0;
-user=$user;
+#DBUS=$( su -c echo 'DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS' edu);
+
 
 while true
 do
@@ -20,7 +22,7 @@ do
 		
 	elif [ $battery_level -le 15 ] && [ $battery_status = "off-line" ] && [ $suspended -eq 0 ]
 	then
-		su -c "notify-send '$battery_level% de bateria'" -s /bin/sh $user
+		dbus-launch notify-send "$battery_level% de bateria";
 		sleep 5;
 		sudo pm-suspend;
 		suspended=1;
@@ -30,20 +32,20 @@ do
 
 	elif [ $battery_level -le 20 ] && [ $battery_status = "off-line" ] && [ $percent20 -eq 0 ]
 	then
-		su -c "notify-send '$battery_level% de bateria'" -s /bin/sh $user;
+		dbus-launch notify-send "$battery_level% de bateria";
 		percent20=1;
 		percent25=1;
 		percent50=1;
 	
 	elif [ $battery_level -le 25 ] && [ $battery_status = "off-line" ] && [ $percent25 -eq 0 ]
 	then
-		su -c "notify-send '$battery_level% de bateria'" -s /bin/sh $user;
+		dbus-launch notify-send "$battery_level% de bateria";
 		percent25=1;
 		percent50=1;
 	
 	elif [ $battery_level -le 50 ] && [ $battery_status = "off-line" ] && [ $percent50 -eq 0 ]
 	then
-		su -c "notify-send '$battery_level% de bateria'" -s /bin/sh $user;
+		dbus-launch notify-send "$battery_level% de bateria";
 		percent50=1;
 
 	elif [ $battery_status = "online" ]
@@ -55,8 +57,11 @@ do
 	fi
 	
 
-	sleep 60;
+	sleep 1;
 
 done
+
+
+
 
 
